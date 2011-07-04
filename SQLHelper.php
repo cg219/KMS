@@ -78,18 +78,15 @@ Twitter: @Kreativeking - www.twitter.com/KreativeKing
 		}
 		
 		function insert( $table, $sqls ) {
-			$query = $this->createQuery('INSERT', $sqls);
+			$obj = new stdClass();
+			$obj->table = $table;
+			$query = $this->createQuery('INSERT', $sqls, $obj);
 			$params = $this->createParamArray($sqls);
 			
 			try {
 				$insert = $this->conn->prepare($query);
-				/*echo '<pre>';
-				print_r($query);
-				print_r($params);
-				echo '</pre>';*/
-				//$this->bind_params($insert, $sqls, 'pdo');
 				$insert->execute($params);
-				//$insert->closeCursor();
+				$insert->closeCursor();
 				return true;
 			}
 			catch(PDOException $error) {
