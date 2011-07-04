@@ -1,5 +1,13 @@
 <?
 
+/*
+
+Author: Clemente Gomez
+Handle: KreativeKing
+Twitter: @Kreativeking - www.twitter.com/KreativeKing
+
+*/
+
 class KSQLObject {
 	
 	private $name;

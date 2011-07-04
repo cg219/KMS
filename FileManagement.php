@@ -1,4 +1,13 @@
 <?
+
+/*
+
+Author: Clemente Gomez
+Handle: KreativeKing
+Twitter: @Kreativeking - www.twitter.com/KreativeKing
+
+*/
+
 include_once('Logger.php');
 
 class FileManagement {
