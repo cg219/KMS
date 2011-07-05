@@ -13,6 +13,7 @@ Twitter: @Kreativeking - www.twitter.com/KreativeKing
 	class SQLHelper
 	{
 		public $conn;
+		public $results;
 		
 		function __construct( $server, $user, $pass, $db)
 		{
@@ -34,41 +35,21 @@ Twitter: @Kreativeking - www.twitter.com/KreativeKing
 			}
 		}
 		
-		function verifyCreds( $user, $pass, $table )
-		{
-			$query = "SELECT * FROM ? WHERE username = ? AND password = ? LIMIT 1";
-			
-			if($stmt = $this->conn->prepare( $query ))
-			{
-				$stmt->bind_param( 'sss', $table, $user, $pass );
-				$stmt->execute();
-				
-				if( $stmt->fetch() )
-				{
-					$stmt->close();
-					return true;
-				}
-			}
-		}
-		
 		function selectAll( $table, $sqls ) {
 			$obj = new stdClass();
 			$obj->table = $table;
 			$query = $this->createQuery('SELECT_ALL', $sqls, $obj);
 			$results = array();
 			$params = array();
-			$i = 0;
 			
 			if($select = $this->conn->query($query)) {
 				$select->setFetchMode(PDO::FETCH_ASSOC);
-				$params = $this->createParamArray($sqls);
 				
 				while($row = $select->fetch()) {
-					echo '<pre>';
-					print_r($row[$$params[$i]]);
-					echo '</pre>';
-					$i++;
+					$results[] = $row;
 				}
+				
+				$this->results = $results;
 				
 				return true;
 			}
